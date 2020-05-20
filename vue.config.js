@@ -9,5 +9,6 @@ module.exports = {
   assetsDir: "static",
   devServer: {
     proxy: "http://47.112.216.17:9091"
+    // proxy: "http://localhost:9091"
   }
 };

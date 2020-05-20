@@ -20,24 +20,23 @@
           </template>
           <img slot="extra" width="88" alt="logo" :src="item.PhotoUrl" />
           <a-list-item-meta :description="item.description">
-            <a
-              @click="like(item.Eid, item.GoodID)"
-              slot="title"
-              :href="item.href"
-              >{{ item.title }}</a
-            >
+            <a slot="title" :href="item.href">{{ item.title }}</a>
             <a-avatar slot="avatar" :src="item.avatar" />
           </a-list-item-meta>
+          <a-list-item-meta :description="item.content"></a-list-item-meta>
+          <a-button
+            type="primary"
+            @click="like(item.Eid, item.GoodID)"
+            icon="like"
+            >like</a-button
+          >
           <a-button
             icon="search"
             type="primary"
+            style="margin-left: 100px;"
             @click="onClick(item.Eid, item.GoodID)"
+            >点击查看价格波动图</a-button
           >
-            点击查看价格波动图
-          </a-button>
-          <a-button type="primary" shape="circle">
-            A
-          </a-button>
         </a-list-item>
       </a-list>
     </div>
@@ -90,7 +89,7 @@ export default {
         });
     },
     onClick: function(Eid, GoodID) {
-      this.$router.push("/bijia/detail/" + GoodID);
+      this.$router.push("/bijia/detail/" + GoodID + "/" + Eid);
     },
     init() {
       axios.get("/goods/top").then(res => {
@@ -99,8 +98,8 @@ export default {
           listData.pop();
         }
         console.log(res);
-        let goods = res.data.result;
-        let size = res.data.result.length;
+        let goods = res.data.goods;
+        let size = res.data.goods.length;
         for (let i = 0; i < size; i++) {
           let Icon = Jd;
           if (goods[i].Eid == 1) {
@@ -119,7 +118,7 @@ export default {
               ";    价格：" +
               goods[i].Price +
               "元;",
-            content: "empty"
+            content: "当前热度为：" + res.data.scores[i]
           });
         }
       });

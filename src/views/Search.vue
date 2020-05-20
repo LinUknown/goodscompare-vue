@@ -21,24 +21,22 @@
           </template>
           <img slot="extra" width="88" alt="logo" :src="item.PhotoUrl" />
           <a-list-item-meta :description="item.description">
-            <a
-              @click="like(item.Eid, item.GoodID)"
-              slot="title"
-              :href="item.href"
-              >{{ item.title }}</a
-            >
+            <a slot="title" :href="item.href">{{ item.title }}</a>
             <a-avatar slot="avatar" :src="item.avatar" />
           </a-list-item-meta>
           <a-button
+            type="primary"
+            @click="like(item.Eid, item.GoodID)"
+            icon="like"
+            >like</a-button
+          >
+          <a-button
             icon="search"
             type="primary"
+            style="margin-left: 100px;"
             @click="onClick(item.Eid, item.GoodID)"
+            >点击查看价格波动图</a-button
           >
-            点击查看价格波动图
-          </a-button>
-          <a-button type="primary" icon="search">
-            Search
-          </a-button>
         </a-list-item>
       </a-list>
     </div>
